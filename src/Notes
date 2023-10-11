@@ -1,0 +1,26 @@
+CUCUMBER
+
+Class 1
+
+Java - programming language
+Selenium - automate web based applications
+
+There are no reports in selenium\
+
+No main method for execution - no control of execution
+
+Smoke
+Regression
+
+
+Framework - this is the final outcome of the complete concepts
+
+Cucumber as a tool;
+Cucumber /BDD/gherkin as a framework
+
+How to create a project:
+File—>newProject—>Maven—> groupId—>ArtifactID—>create
+
+GroupID=organization name;
+
+ArtifactID= name of the project
