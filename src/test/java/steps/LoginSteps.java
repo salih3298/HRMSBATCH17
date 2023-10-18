@@ -16,6 +16,7 @@ public class LoginSteps {
     public void user_is_navigated_to_hrms_application() throws InterruptedException {
         driver = new ChromeDriver();
         driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/dashboard");
+        driver.manage().window().maximize();
         Thread.sleep(2000);
 
 

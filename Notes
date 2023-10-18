@@ -50,7 +50,7 @@ commons
 
 Class 2 -
 Recap -
-in selenium, we dont have reporting option, no execution control, no standard format
+in selenium, we don't have reporting option, no execution control, no standard format
 of writing the code. To achieve all these, we need to integrate our scripts with
 additional tools and structure (framework)
 
@@ -98,3 +98,26 @@ Scenario - search employee by id
     When user enters employee id
     And user clicks on search button
     Then user should be able to see employee details
+
+    ***************************************************************************************
+
+class 3 -
+
+for feature file, we need step definitions to execute the code.
+
+we need one pont of execution.
+
+as per the standards, for employeesearch feature, we need employeesearch steps class
+to write all the steps definitions
+
+we cannot write duplicate steps in step definitions classes
+
+runner class - we execute all the scenarios, some of the scenarios or one of the scenarios
+based on the requirement
+
+in runners package, we will create all the test runner classes
+features
+glue
+
+
+utils folder - to create common methods class so that we can use all the common functions from
