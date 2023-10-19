@@ -13,16 +13,15 @@ import java.time.Duration;
 
 public class LoginSteps extends CommonMethods {
 
-  //  public WebDriver driver;
+    //  public WebDriver driver;
 
     @Given("user is navigated to HRMS application")
-    public void user_is_navigated_to_hrms_application()  {
-        driver = new ChromeDriver();
-        driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-        //Thread.sleep(2000);
+    public void user_is_navigated_to_hrms_application() {
+        //  driver = new ChromeDriver();
+        //  driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
+        //  driver.manage().window().maximize();
+        //  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        openBrowserAndLaunchApplication();
 
 
     }
@@ -31,7 +30,7 @@ public class LoginSteps extends CommonMethods {
     public void user_enters_admin_username_and_password() {
         WebElement usernameTextField = driver.findElement(By.xpath("//*[@id='txtUsername']"));
         usernameTextField.sendKeys("admin");
-       // Thread.sleep(2000);
+        // Thread.sleep(2000);
         // WebElement passwordTextField = driver.findElement(By.xpath("//*[@id='txtPassword']"));
         WebElement passwordTextField = driver.findElement(By.cssSelector("input#txtPassword")); //Shortcut for CssSelector
         passwordTextField.sendKeys("Hum@nhrm123");
@@ -41,10 +40,10 @@ public class LoginSteps extends CommonMethods {
     }
 
     @When("user clicks on login button")
-    public void user_clicks_on_login_button()  {
+    public void user_clicks_on_login_button() {
         WebElement loginButton = driver.findElement(By.xpath("//*[@value='LOGIN']"));
         loginButton.click();
-       // Thread.sleep(2000);
+        // Thread.sleep(2000);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
     }
