@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import utils.CommonMethods;
+import utils.ConfigReader;
 
 import java.time.Duration;
 
@@ -29,12 +30,14 @@ public class LoginSteps extends CommonMethods {
     @When("user enters admin username and password")
     public void user_enters_admin_username_and_password() {
         WebElement usernameTextField = driver.findElement(By.xpath("//*[@id='txtUsername']"));
-        usernameTextField.sendKeys("admin");
+        // usernameTextField.sendKeys("admin");
         // Thread.sleep(2000);
+        sendText(usernameTextField, ConfigReader.getPropertyValue("username"));
         // WebElement passwordTextField = driver.findElement(By.xpath("//*[@id='txtPassword']"));
         WebElement passwordTextField = driver.findElement(By.cssSelector("input#txtPassword")); //Shortcut for CssSelector
-        passwordTextField.sendKeys("Hum@nhrm123");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        sendText(passwordTextField, ConfigReader.getPropertyValue("password"));
+        //  passwordTextField.sendKeys("Hum@nhrm123");
+        // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 
     }
@@ -42,9 +45,10 @@ public class LoginSteps extends CommonMethods {
     @When("user clicks on login button")
     public void user_clicks_on_login_button() {
         WebElement loginButton = driver.findElement(By.xpath("//*[@value='LOGIN']"));
-        loginButton.click();
+        click(loginButton);
+        // loginButton.click();
         // Thread.sleep(2000);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
     }
 

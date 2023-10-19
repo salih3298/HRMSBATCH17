@@ -1,10 +1,13 @@
 package utils;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
@@ -36,19 +39,28 @@ public class CommonMethods {
         element.sendKeys(textToSend);
     }
 
+    public static WebDriverWait getWait() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(Constants.EXPLICIT_WAIT));
+        return wait;
+    }
 
+    public static void waitForClickability(WebElement element) {
+        getWait().until(ExpectedConditions.elementToBeClickable(element));
+    }
 
+    public static void click(WebElement element) {
+        waitForClickability(element);
+        element.click();
+    }
 
+    public static JavascriptExecutor getJSExecutor() {
+        JavascriptExecutor js=(JavascriptExecutor) driver;
+        return js;
+    }
 
-
-
-
-
-
-
-
-
-
+    public static void jsClick(WebElement element) {
+        getJSExecutor().executeScript("arguments[0].click",element);
+    }
 
 
 
