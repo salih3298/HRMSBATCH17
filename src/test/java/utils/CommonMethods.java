@@ -54,14 +54,17 @@ public class CommonMethods {
     }
 
     public static JavascriptExecutor getJSExecutor() {
-        JavascriptExecutor js=(JavascriptExecutor) driver;
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         return js;
     }
 
     public static void jsClick(WebElement element) {
-        getJSExecutor().executeScript("arguments[0].click",element);
+        getJSExecutor().executeScript("arguments[0].click", element);
     }
 
+    public void closeBrowser() {
+        driver.quit();
+    }
 
 
 }
