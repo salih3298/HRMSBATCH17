@@ -52,8 +52,7 @@ public class AddEmployeeSteps extends CommonMethods {
         sendText(middleNameField, middleName);
         sendText(lastNameField, lastName);
     }
-
-    @When("user enters {string} and {string} and {string}")
+    @When("user enters {string} and {string} and enters {string}")
     public void user_enters_and_and_enters(String firstName, String middleName, String lastName) {
         WebElement firstNameField = driver.findElement(By.xpath("//input[@id='firstName']"));
         WebElement middleNameField = driver.findElement(By.xpath("//input[@id='middleName']"));
@@ -62,5 +61,6 @@ public class AddEmployeeSteps extends CommonMethods {
         sendText(middleNameField, middleName);
         sendText(lastNameField, lastName);
     }
+
 
 }

@@ -33,7 +33,7 @@ Feature: add employee scenario
 
   @ddt
   Scenario Outline: adding multiple employees from feature file
-    When user enters "<firstName>" and "<middleName>" and "<lastName>"
+    When user enters "<firstName>" and "<middleName>" and enters "<lastName>"
     And user clicks on save button
     Then employee added successfully
     Examples:
