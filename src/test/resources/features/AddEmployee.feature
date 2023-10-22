@@ -39,6 +39,18 @@ Feature: add employee scenario
     Then employee added successfully
     Examples:
       | firstName | middleName | lastName |
-      |donal1      |ms          |duck      |
-      |tamoha1     |ms          |jimo      |
-      |joe1        |ms          |trump     |
+      | donal1    | ms         | duck     |
+      | tamoha1   | ms         | jimo     |
+      | joe1      | ms         | trump    |
+
+  @excel
+  Scenario: Adding multiple employees from excel file
+    When user adds multiple employees from excel using "Sheet1" and verify them
+
+  @datatable
+  Scenario: adding multiple employees from data table
+    When user adds multiple employees from data table
+      | firstName    | middleName | lastName   |
+      | Donaldina12  | ms         | Duckushun  |
+      | Tamohanama12 | ms         | Jimoradun  |
+      | Joesu12      | ms         | trumpuniun |
