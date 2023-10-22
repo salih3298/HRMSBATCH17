@@ -20,7 +20,7 @@ public class CommonMethods extends PageInitializer {
     public static void openBrowserAndLaunchApplication(){
         ConfigReader.readProperties(Constants.CONFIGURATION_FILEPATH);
         switch (ConfigReader.getPropertyValue("browser")){
-            case "Chrome":
+            case "chrome":
                 driver = new ChromeDriver();
                 break;
             case "firefox":
