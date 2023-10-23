@@ -7,13 +7,14 @@ import utils.CommonMethods;
 public class Hooks extends CommonMethods {
 
     @Before
-    public void start(){
+    public void start() {
         openBrowserAndLaunchApplication();
     }
 
     @After
-    public void end(){
+    public void end() {
         closeBrowser();
+
     }
 
 
