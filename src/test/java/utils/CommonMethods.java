@@ -17,9 +17,9 @@ public class CommonMethods extends PageInitializer {
 
     public static WebDriver driver;
 
-    public static void openBrowserAndLaunchApplication(){
+    public static void openBrowserAndLaunchApplication() {
         ConfigReader.readProperties(Constants.CONFIGURATION_FILEPATH);
-        switch (ConfigReader.getPropertyValue("browser")){
+        switch (ConfigReader.getPropertyValue("browser")) {
             case "chrome":
                 driver = new ChromeDriver();
                 break;
@@ -35,37 +35,37 @@ public class CommonMethods extends PageInitializer {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constants.IMPLICIT_WAIT));
     }
 
-    public static void sendText(WebElement element, String textToSend){
+    public static void sendText(WebElement element, String textToSend) {
         element.clear();
         element.sendKeys(textToSend);
     }
 
 
-    public static WebDriverWait getWait(){
+    public static WebDriverWait getWait() {
         WebDriverWait wait = new WebDriverWait(driver,
                 Duration.ofSeconds(Constants.EXPLICIT_WAIT));
         return wait;
     }
 
-    public static void waitForClickability(WebElement element){
+    public static void waitForClickability(WebElement element) {
         getWait().until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public static void click(WebElement element){
+    public static void click(WebElement element) {
         waitForClickability(element);
         element.click();
     }
 
-    public static JavascriptExecutor getJSExecutor(){
+    public static JavascriptExecutor getJSExecutor() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         return js;
     }
 
-    public static void jsClick(WebElement element){
+    public static void jsClick(WebElement element) {
         getJSExecutor().executeScript("arguments[0].click();", element);
     }
 
-    public void closeBrowser(){
+    public void closeBrowser() {
         driver.quit();
     }
 

@@ -71,7 +71,7 @@ public class AddEmployeeSteps extends CommonMethods {
 
     @When("user adds multiple employees from excel using {string} and verify them")
     public void user_adds_multiple_employees_from_excel_using_and_verify_them
-            (String sheetName) throws InterruptedException {
+            (String sheetName) {
         List<Map<String, String>> newEmployees =
                 ExcelReader.read(sheetName, Constants.TESTDATA_FILEPATH);
 
@@ -94,10 +94,10 @@ public class AddEmployeeSteps extends CommonMethods {
             sendText(addEmployeePage.passwordEmp, employeeMap.get("Password"));
             sendText(addEmployeePage.confirmPassword, employeeMap.get("confirmPassword"));
             click(addEmployeePage.saveBtn);
-            Thread.sleep(2000);
+
             //because we want to add many employees
             click(dashboardPage.addEmployeeButton);
-            Thread.sleep(2000);
+
             //verification of employee still pending
         }
 
