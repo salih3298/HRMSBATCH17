@@ -188,7 +188,7 @@ we need to create hooks class under steps package
 when we execute the code, hooks class will execute pre condition first and then all the
 test cases will be executed and then post condition will be execute at last
 
-DONT FORGET TO COMMENT STEPS FROM ALL FEATURE FILES FOR PRE AND POST CONdITION
+DONT FORGET TO COMMENT STEPS FROM ALL FEATURE FILES FOR PRE AND POST CONDITION
 
 in the framework, we cannot pass any hard coded data. cucumber allows us to perform
 data driven testing
@@ -232,3 +232,30 @@ POM - page object model design pattern
 we create separate classes for separate screens of the application
 
 with the help of constructor, we initialize all the web elements
+
+class 7 -
+
+recap -
+data driven testing
+we can achieve ddt using excel file when the volume of data big
+we can achieve ddt using data table
+we can achieve ddt using examples table
+
+data table vs examples table
+data table is specific for just one step. However, examples table is for complete
+scenario.
+
+page initializer classes we need centralized class
+that's why we use page initializer which we call in common methods.
+
+reporting in framework -
+it gives us the complete information
+
+
+
+
+
+
+
+
+
