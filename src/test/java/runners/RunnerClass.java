@@ -22,7 +22,7 @@ import org.junit.runner.RunWith;
         //pretty is responsible for printing the step definition in the console
         // in your framework, all reports should be generated under target folder
         // we will generate html report in target folder
-        plugin = {"pretty","html:target/cucumber.html"}
+        plugin = {"pretty", "html:target/cucumber.html","json:target/cucumber.json"}
 
 
 )
