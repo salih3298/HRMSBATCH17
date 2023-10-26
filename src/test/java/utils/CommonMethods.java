@@ -1,11 +1,10 @@
 package utils;
 
-import io.cucumber.java.et.Ja;
+
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.devtools.v85.page.Page;
+
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,9 +19,9 @@ public class CommonMethods extends PageInitializer {
 
     public static WebDriver driver;
 
-    public static void openBrowserAndLaunchApplication() {
+    public static void openBrowserAndLaunchApplication(){
         ConfigReader.readProperties(Constants.CONFIGURATION_FILEPATH);
-        switch (ConfigReader.getPropertyValue("browser")) {
+        switch (ConfigReader.getPropertyValue("browser")){
             case "chrome":
                 driver = new ChromeDriver();
                 break;
@@ -38,68 +37,68 @@ public class CommonMethods extends PageInitializer {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constants.IMPLICIT_WAIT));
     }
 
-    public static void sendText(WebElement element, String textToSend) {
+    public static void sendText(WebElement element, String textToSend){
         element.clear();
         element.sendKeys(textToSend);
     }
 
 
-    public static WebDriverWait getWait() {
+    public static WebDriverWait getWait(){
         WebDriverWait wait = new WebDriverWait(driver,
                 Duration.ofSeconds(Constants.EXPLICIT_WAIT));
         return wait;
     }
 
-    public static void waitForClickability(WebElement element) {
+    public static void waitForClickability(WebElement element){
         getWait().until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public static void click(WebElement element) {
+    public static void click(WebElement element){
         waitForClickability(element);
         element.click();
     }
 
-    public static JavascriptExecutor getJSExecutor() {
+    public static JavascriptExecutor getJSExecutor(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         return js;
     }
 
-    public static void jsClick(WebElement element) {
+    public static void jsClick(WebElement element){
         getJSExecutor().executeScript("arguments[0].click();", element);
     }
 
-    public void closeBrowser() {
+    public void closeBrowser(){
         driver.quit();
     }
 
-    // take screenshot method for capturing all the screenshots
-    public static byte[] takeScreenshot(String fileName) {
+    //take screenshot method for capturing all the screenshots
+    public static byte[] takeScreenshot(String fileName){
         TakesScreenshot ts = (TakesScreenshot) driver;
         //in cucumber screenshot should be taken in array of byte format
         //since the size of the image is in byte, that's why the return type of this
         //method is array of byte
         byte[] picByte = ts.getScreenshotAs(OutputType.BYTES);
         File sourceFile = ts.getScreenshotAs(OutputType.FILE);
-        //we will pass the path of ss from constant class
+        //we will pass the path of ss from constants class
         try {
-            FileUtils.copyFile(sourceFile, new File(Constants.SCREENSHOT_FILEPATH + fileName + " " +
-                    getTimeStamp("yyyy-MM-dd-HH-ss") + ".png"));
+            FileUtils.copyFile
+                    (sourceFile, new File
+                            (Constants.SCREENSHOT_FILEPATH +
+                                    fileName+" "+
+                                    getTimeStamp("yyyy-MM-dd-HH-mm-ss")
+                                    +".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return picByte;
     }
 
     //in java we have a module which returns current date and time
-    public static String getTimeStamp(String pattern) {
+    public static String getTimeStamp(String pattern){
         Date date = new Date();
         //after getting the date, I need to format it as per my requirement
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        sdf.format(date);
+        //it willl return the formatted date as per the pattern in string format
         return sdf.format(date);
     }
-
-
 }
