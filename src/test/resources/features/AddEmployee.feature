@@ -54,3 +54,11 @@ Feature: add employee scenario
       | Donaldina12  | ms         | Duckushun  |
       | Tamohanama12 | ms         | Jimoradun  |
       | Joesu12      | ms         | trumpuniun |
+
+@db
+  Scenario: Add Employee from Frontend and verify from DB
+    When user enters "salih" and "Sr." and "aygun"
+    And user clicks on save button
+    Then employee added successfully
+    And fetch employee from backend
+    Then verify employee info is properly stored in db

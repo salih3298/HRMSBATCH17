@@ -9,7 +9,7 @@ import java.util.Properties;
 public class ConfigReader {
     static Properties prop;
 
-    public static Properties readProperties(String filePath){
+    public static Properties readProperties(String filePath) {
 
         try {
             FileInputStream fis = new FileInputStream(filePath);
@@ -23,7 +23,7 @@ public class ConfigReader {
         return prop;
     }
 
-    public static String getPropertyValue(String key){
+    public static String getPropertyValue(String key) {
         //from prop object we are calling get property method
         // and we will pass the key to fetch the value
         return prop.getProperty(key);
