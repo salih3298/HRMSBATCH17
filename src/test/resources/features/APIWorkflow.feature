@@ -20,3 +20,20 @@ Feature: Syntax API workflow feature
     And the retrieved data at "employee" object matches the data used to create employee
       | emp_firstname | emp_lastname | emp_middle_name | emp_gender | emp_birthday | emp_status | emp_job_title |
       | Salih         | Aygun        | Sr.             | Male       | 2003-01-26   | confirmed  | QA            |
+
+
+  @json
+  Scenario: Creating the employee using json paylaod
+    Given a request is prepared for creating an employee via json payload
+    When a POST call is made to create an employee
+    Then the status code for this request is 201
+    And the employee id "Employee.employee_id" is stored as global variable for other request
+    And the response body contains "Message" key and value "Employee Created"
+
+  @jsondynamic
+  Scenario: Creating the employee using json paylaod
+    Given a request is prepared for creating an employee with dynamic data "Salih", "Aygun", "Sr.","M", "2003-01-26","confirmed","QA"
+    When a POST call is made to create an employee
+    Then the status code for this request is 201
+    And the employee id "Employee.employee_id" is stored as global variable for other request
+    And the response body contains "Message" key and value "Employee Created"
