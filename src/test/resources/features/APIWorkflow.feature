@@ -22,7 +22,7 @@ Feature: Syntax API workflow feature
       | Salih         | Aygun        | Sr.             | Male       | 2003-01-26   | confirmed  | QA            |
 
 
-  @json
+  @json   @api
   Scenario: Creating the employee using json paylaod
     Given a request is prepared for creating an employee via json payload
     When a POST call is made to create an employee
@@ -30,7 +30,7 @@ Feature: Syntax API workflow feature
     And the employee id "Employee.employee_id" is stored as global variable for other request
     And the response body contains "Message" key and value "Employee Created"
 
-  @jsondynamic
+  @jsondynamic   @api
   Scenario: Creating the employee using json paylaod
     Given a request is prepared for creating an employee with dynamic data "Salih", "Aygun", "Sr.","M", "2003-01-26","confirmed","QA"
     When a POST call is made to create an employee
