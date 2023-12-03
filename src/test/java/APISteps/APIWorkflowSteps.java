@@ -7,6 +7,8 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Assert;
+import utils.APIConstants;
+import utils.APIPayloadConstants;
 
 import java.util.List;
 import java.util.Map;
@@ -25,13 +27,12 @@ public class APIWorkflowSteps {
 
     @Given("a JWT is generated")
     public void a_jwt_is_generated() {
-        request = given().
-                header("Content-Type", "application/json").
-                body("{\n" +
-                        "  \"email\": \"salihbatch17@gmail.com\",\n" +
-                        "  \"password\": \"123456789\"\n" +
-                        "}");
-        response = request.when().post("/generateToken.php");
+      /*  request = given().header(APIConstants.Header_Content_Type_Key, APIConstants.Content_type_Value).
+                body("{\n" + "  \"email\": \"salihbatch17@gmail.com\",\n" + "  \"password\": \"123456789\"\n" + "}");*/
+
+        request = given().header(APIConstants.Header_Content_Type_Key, APIConstants.Content_type_Value).
+                body(APIPayloadConstants.generateTokenPayload());
+        response = request.when().post(APIConstants.GENERATE_TOKEN_URI);
         // storing the token after generating it
         token = "Bearer " + response.jsonPath().getString("token");
         System.out.println(token);
@@ -39,22 +40,21 @@ public class APIWorkflowSteps {
 
     @Given("a request is prepared to create an employee")
     public void a_request_is_prepared_to_create_an_employee() {
-        request = given().header("Content-Type", "application/json")
-                .header("Authorization", token)
-                .body("{\n" +
-                        "  \"emp_firstname\": \"Salih\",\n" +
-                        "  \"emp_lastname\": \"Aygun\",\n" +
-                        "  \"emp_middle_name\": \"Sr.\",\n" +
-                        "  \"emp_gender\": \"M\",\n" +
-                        "  \"emp_birthday\": \"2003-01-26\",\n" +
-                        "  \"emp_status\": \"confirmed\",\n" +
-                        "  \"emp_job_title\": \"QA\"\n" +
-                        "}");
+      /*  request = given().header(APIConstants.Header_Content_Type_Key, APIConstants.Content_type_Value).
+                header(APIConstants.Header_Authorization_key, token).
+                body("{\n" + "  \"emp_firstname\": \"Salih\",\n" + "  \"emp_lastname\": \"Aygun\",\n" +
+                        "  \"emp_middle_name\": \"Sr.\",\n" + "  \"emp_gender\": \"M\",\n" +
+                        "  \"emp_birthday\": \"2003-01-26\",\n" + "  \"emp_status\": \"confirmed\",\n" +
+                        "  \"emp_job_title\": \"QA\"\n" + "}");  */
+
+        request = given().header(APIConstants.Header_Content_Type_Key, APIConstants.Content_type_Value).
+                header(APIConstants.Header_Authorization_key, token).
+                body(APIPayloadConstants.createEmployeePayload());
     }
 
     @When("a POST call is made to create an employee")
     public void a_post_call_is_made_to_create_an_employee() {
-        response = request.when().post("/createEmployee.php");
+        response = request.when().post(APIConstants.CREATE_EMPLOYEE_URI);
 
         // to print the response in console
         response.prettyPrint();
@@ -73,24 +73,22 @@ public class APIWorkflowSteps {
     }
 
     @Then("the employee id {string} is stored as global variable for other request")
-    public void the_employee_id_is_stored_as_global_variable_for_other_request
-            (String empId) {
+    public void the_employee_id_is_stored_as_global_variable_for_other_request(String empId) {
         //empId is the parameter coming from feature file which is the path of employee id
         employee_id = response.jsonPath().getString(empId);
         System.out.println(employee_id);
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////
     @Given("a request is prepared to get the created employee")
     public void a_request_is_prepared_to_get_the_created_employee() {
-        request = given().
-                header("Content-Type","application/json").
-                header("Authorization", token).
-                queryParam("employee_id", employee_id);
+        request = given().header(APIConstants.Header_Content_Type_Key, APIConstants.Content_type_Value).
+                header(APIConstants.Header_Authorization_key, token).queryParam("employee_id", employee_id);
     }
 
     @When("a GET call is made to get the employee")
     public void a_get_call_is_made_to_get_the_employee() {
-        response = request.when().get("/getOneEmployee.php");
+        response = request.when().get(APIConstants.GET_ONE_EMPLOYEE_URI);
         response.prettyPrint();
     }
 
@@ -101,30 +99,28 @@ public class APIWorkflowSteps {
 
     @Then("the global employee id must match with {string} key")
     public void the_global_employee_id_must_match_with_key(String empId) {
-        String tempEmpId = response.jsonPath().
-                getString(empId);
+        String tempEmpId = response.jsonPath().getString(empId);
         Assert.assertEquals(tempEmpId, employee_id);
     }
 
     @Then("the retrieved data at {string} object matches the data used to create employee")
-    public void the_retrieved_data_at_object_matches_the_data_used_to_create_employee
-            (String employeeObject, io.cucumber.datatable.DataTable dataTable) {
+    public void the_retrieved_data_at_object_matches_the_data_used_to_create_employee(String employeeObject, io.cucumber.datatable.DataTable dataTable) {
         //one map comes from data table
         List<Map<String, String>> expectedData = dataTable.asMaps();
         //another map comes from employee object response
         //get is going to return the whole map, getString returns just one value
-        Map<String, String> actualData =
-                response.body().jsonPath().get(employeeObject);
+        Map<String, String> actualData = response.body().jsonPath().get(employeeObject);
 
-        for (Map<String, String> map : expectedData){
+        for (Map<String, String> map : expectedData) {
             //storing all the keys under set
             Set<String> keys = map.keySet();
             //from set of keys to one key at one time
-            for (String key:keys){
+            for (String key : keys) {
                 //this will return the value against the keys of datatable
                 String expectedValue = map.get(key);
                 //this will return the value against the employee object
                 String actualValue = actualData.get(key);
+
                 Assert.assertEquals(actualValue, expectedValue);
             }
         }
