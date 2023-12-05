@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 
 public class APIWorkflowSteps {
 
@@ -148,5 +148,27 @@ public class APIWorkflowSteps {
                 header(APIConstants.Header_Authorization_key, token)
                 .body(APIPayloadConstants.payloadDynamic(firstName, lastName, middleName, gender, birthdate, status, jobTitle));
     }
+
+    @Given("a request is prepared for getting all employees")
+    public void a_request_is_prepared_for_getting_all_employees() {
+        request = given().header(APIConstants.Header_Authorization_key, token);
+    }
+
+    @When("a GET call is made to get all employees")
+    public void a_get_call_is_made_to_get_all_employees() {
+        response = request.when().get(APIConstants.GET_ALL_EMPLOYEE_URI);
+          response.prettyPrint();
+    }
+
+    @Given("a request is prepared for getting all job titles")
+    public void a_request_is_prepared_for_getting_all_job_titles() {
+        request = given().header(APIConstants.Header_Authorization_key, token);
+    }
+    @When("a GET call is made to get all job titles")
+    public void a_get_call_is_made_to_get_all_job_titles() {
+        response = request.when().get(APIConstants.GET_ALL_JOB_TITLE_URI);
+        response.prettyPrint();
+    }
+
 
 }

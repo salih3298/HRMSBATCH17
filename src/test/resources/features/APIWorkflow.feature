@@ -37,3 +37,17 @@ Feature: Syntax API workflow feature
     Then the status code for this request is 201
     And the employee id "Employee.employee_id" is stored as global variable for other request
     And the response body contains "Message" key and value "Employee Created"
+
+
+    # Write the scenarios get request for getting all the job titles and employees and validate the results
+  @apiHW1
+  Scenario: Getting all employees
+    Given a request is prepared for getting all employees
+    When a GET call is made to get all employees
+    Then the status code for this employee is 200
+
+  @apiHW2
+  Scenario: Getting all job titles
+    Given a request is prepared for getting all job titles
+    When a GET call is made to get all job titles
+    Then the status code for this employee is 200
