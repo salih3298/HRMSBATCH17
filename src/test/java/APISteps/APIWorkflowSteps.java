@@ -149,6 +149,7 @@ public class APIWorkflowSteps {
                 .body(APIPayloadConstants.payloadDynamic(firstName, lastName, middleName, gender, birthdate, status, jobTitle));
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////
     @Given("a request is prepared for getting all employees")
     public void a_request_is_prepared_for_getting_all_employees() {
         request = given().header(APIConstants.Header_Authorization_key, token);
@@ -157,16 +158,54 @@ public class APIWorkflowSteps {
     @When("a GET call is made to get all employees")
     public void a_get_call_is_made_to_get_all_employees() {
         response = request.when().get(APIConstants.GET_ALL_EMPLOYEE_URI);
-          response.prettyPrint();
+        response.prettyPrint();
+
     }
 
     @Given("a request is prepared for getting all job titles")
     public void a_request_is_prepared_for_getting_all_job_titles() {
         request = given().header(APIConstants.Header_Authorization_key, token);
     }
+
     @When("a GET call is made to get all job titles")
     public void a_get_call_is_made_to_get_all_job_titles() {
         response = request.when().get(APIConstants.GET_ALL_JOB_TITLE_URI);
+        response.prettyPrint();
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    @Given("a request is prepared to update an employee in HRMS system")
+    public void a_request_is_prepared_to_update_an_employee_in_hrms_system() {
+        request = given().header(APIConstants.Header_Content_Type_Key,
+                        APIConstants.Content_type_Value).
+                header(APIConstants.Header_Authorization_key, token).
+                body(APIPayloadConstants.updateEmployeePayload());
+    }
+
+    @When("a PUT call is made to update the employee")
+    public void a_put_call_is_made_to_update_the_employee() {
+        response = request.when().put(APIConstants.UPDATE_EMPLOYEE_URI);
+        response.prettyPrint();
+    }
+
+    @Then("the status code for updating the employee is {int}")
+    public void the_status_code_for_updating_the_employee_is(Integer statusCode) {
+        response.then().assertThat().statusCode(statusCode);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Given("a request is prepared to partially update an employee in HRMS system")
+    public void a_request_is_prepared_to_partially_update_an_employee_in_hrms_system() {
+        request = given().header(APIConstants.Header_Content_Type_Key,
+                        APIConstants.Content_type_Value).header(APIConstants.Header_Authorization_key, token).
+                body(APIPayloadConstants.partiallyUpdateEmployeePayload());
+    }
+
+    @When("a PATCH call is made to partially update the employee")
+    public void a_patch_call_is_made_to_partially_update_the_employee() {
+        response = request.when().patch(APIConstants.PARTIALLY_UPDATE_EMPLOYEE_URI);
         response.prettyPrint();
     }
 

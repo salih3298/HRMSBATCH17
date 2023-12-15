@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features/",
         //glue is where we find implementation of gherkin steps
         //we provide the path of package where we defined all the step def
-        glue = "Steps",
+        glue = "steps",
         //if we set the value of dry run to true, it will stop the execution
         //it quickly scans all the gherkin steps in all the feature files and will give
         //you the missing step definition

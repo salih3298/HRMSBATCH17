@@ -3,7 +3,7 @@ Feature: Syntax API workflow feature
   Background:
     Given a JWT is generated
 
-  @api
+  @api @updatePartially
   Scenario: create an employee via API
 
     Given a request is prepared to create an employee
@@ -30,7 +30,7 @@ Feature: Syntax API workflow feature
     And the employee id "Employee.employee_id" is stored as global variable for other request
     And the response body contains "Message" key and value "Employee Created"
 
-  @jsondynamic   @api
+  @jsondynamic   @api @update
   Scenario: Creating the employee using json paylaod
     Given a request is prepared for creating an employee with dynamic data "Salih", "Aygun", "Sr.","M", "2003-01-26","confirmed","QA"
     When a POST call is made to create an employee
@@ -51,3 +51,18 @@ Feature: Syntax API workflow feature
     Given a request is prepared for getting all job titles
     When a GET call is made to get all job titles
     Then the status code for this employee is 200
+
+
+  @update
+    Scenario: Updating the employee
+      Given a request is prepared to update an employee in HRMS system
+      When a PUT call is made to update the employee
+      Then the status code for updating the employee is 200
+    And the response body contains "Message" key and value "Employee record Updated"
+
+  @updatePartially
+  Scenario: Partially Updating the employee
+    Given a request is prepared to partially update an employee in HRMS system
+    When a PATCH call is made to partially update the employee
+    Then the status code for updating the employee is 201
+    And the response body contains "Message" key and value "Employee record updated successfully"

@@ -6,6 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.WebDriver;
 
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,11 +21,13 @@ public class CommonMethods extends PageInitializer {
 
     public static WebDriver driver;
 
-    public static void openBrowserAndLaunchApplication(){
+    public static void openBrowserAndLaunchApplication() {
         ConfigReader.readProperties(Constants.CONFIGURATION_FILEPATH);
-        switch (ConfigReader.getPropertyValue("browser")){
+        switch (ConfigReader.getPropertyValue("browser")) {
             case "chrome":
-                driver = new ChromeDriver();
+                ChromeOptions chromeOptions = new ChromeOptions();   //without opening browser it is an option
+                chromeOptions.setHeadless(true);
+                driver = new ChromeDriver(chromeOptions);
                 break;
             case "firefox":
                 driver = new FirefoxDriver();
@@ -38,42 +41,42 @@ public class CommonMethods extends PageInitializer {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constants.IMPLICIT_WAIT));
     }
 
-    public static void sendText(WebElement element, String textToSend){
+    public static void sendText(WebElement element, String textToSend) {
         element.clear();
         element.sendKeys(textToSend);
     }
 
 
-    public static WebDriverWait getWait(){
+    public static WebDriverWait getWait() {
         WebDriverWait wait = new WebDriverWait(driver,
                 Duration.ofSeconds(Constants.EXPLICIT_WAIT));
         return wait;
     }
 
-    public static void waitForClickability(WebElement element){
+    public static void waitForClickability(WebElement element) {
         getWait().until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public static void click(WebElement element){
+    public static void click(WebElement element) {
         waitForClickability(element);
         element.click();
     }
 
-    public static JavascriptExecutor getJSExecutor(){
+    public static JavascriptExecutor getJSExecutor() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         return js;
     }
 
-    public static void jsClick(WebElement element){
+    public static void jsClick(WebElement element) {
         getJSExecutor().executeScript("arguments[0].click();", element);
     }
 
-    public void closeBrowser(){
+    public void closeBrowser() {
         driver.quit();
     }
 
     //take screenshot method for capturing all the screenshots
-    public static byte[] takeScreenshot(String fileName){
+    public static byte[] takeScreenshot(String fileName) {
         TakesScreenshot ts = (TakesScreenshot) driver;
         //in cucumber screenshot should be taken in array of byte format
         //since the size of the image is in byte, that's why the return type of this
@@ -85,9 +88,9 @@ public class CommonMethods extends PageInitializer {
             FileUtils.copyFile
                     (sourceFile, new File
                             (Constants.SCREENSHOT_FILEPATH +
-                                    fileName+" "+
+                                    fileName + " " +
                                     getTimeStamp("yyyy-MM-dd-HH-mm-ss")
-                                    +".png"));
+                                    + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -95,7 +98,7 @@ public class CommonMethods extends PageInitializer {
     }
 
     //in java we have a module which returns current date and time
-    public static String getTimeStamp(String pattern){
+    public static String getTimeStamp(String pattern) {
         Date date = new Date();
         //after getting the date, I need to format it as per my requirement
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
